@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./../static/css/style.css" />
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .main-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.6s;
+        padding: 10px 100px;
+        z-index: 1000000;
+      }
+      .main-header.sticky {
+        padding: 5px 100px;
+        background-color: #fff;
+        box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+      }
+      header .main-logo {
+        position: relative;
+        width: 48px;
+        /* font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        font-size: 2em;
+        letter-spacing: 2px; */
+        transition: 0.6s;
+      }
+      .main-logo img {
+        width: 100%;
+      }
+      .main-header ul {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main-header ul li {
+        position: relative;
+        list-style: none;
+      }
+      .main-header ul li a {
+        position: relative;
+        margin: 0 15px;
+        text-decoration: none;
+        color: #000;
+        letter-spacing: 2px;
+        font-weight: 500px;
+        transition: 0.6s;
+      }
+      .main-header.sticky ul li a,
+      .main-header.sticky .main-logo {
+        color: #000;
+      }
+      .user-name {
+        color: #694dd6;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+      .logout {
+        margin-right: 5px;
+      }
+      .user-names {
+        margin-right: 11px;
+      }
+      .user-alram {
+        position: relative;
+        display: block;
+        background: url('<%=img%>');
+        background-size: cover;
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+      }
+      .new-alram {
+        display: none;
+        text-align: center;
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        background-color: #694dd6;
+        position: absolute;
+        top: -3px;
+        left: 248px;
+        border-radius: 50%;
+        font-size: 12px;
+        line-height: 17px;
+      }
+      @media screen and (min-width:375px) and (max-width:499px) {
+  .logout{
+    margin-right: 18px;
+  }
+}
+      @media screen and (min-width: 499px) and (max-width: 768px) {
+        .main-header {
+          padding: 10px 24px;
+        }
+        .main-header.sticky {
+          padding: 5px 26px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <a href="#" class="main-logo"
+        ><img src="./../static/img/logo.png" alt=""
+      /></a>
+      <ul>
+        <%if ( !isLogin ) { %>
+        <li><a href="/signin">로그인</a></li>
+        <li><a href="/signup">회원가입</a></li>
+        <% } else { %>
+        <a href="/myPage"><span class="user-name"><%=user%> 님</span></a>
+        <span class="user-names"> 환영합니다.</span>
+        <a href="logout" class="logout">로그아웃</a>
+        <a href="/myPage"><span class="user-alram"></span></a>
+        <span class="new-alram">N</span>
+        <% } %>
+      </ul>
+    </header>
+    <script type="text/javascript">
+      window.addEventListener('scroll', function () {
+        const header = document.querySelector('header')
+        header.classList.toggle('sticky', window.scrollY > 0)
+      })
+
+      function loginImg() {
+        var userAlram = document.querySelector('.user-alram')
+        var user = '<%=user%>'
+        var url = '<%=img%>'
+        if (user) {
+          userAlram.style.background = `url(${url})`
+        }
+      }
+      // loginImg()
+    </script>
+  </body>
+</html>

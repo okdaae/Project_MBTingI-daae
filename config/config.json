@@ -1,0 +1,10 @@
+{
+  "local": {
+    "host": "localhost",
+    "database": "MBTingI_DataB",
+    "username": "root",
+    "password": "mysql0553",
+    "dialect": "mysql",
+    "port": "3306"
+  }
+}

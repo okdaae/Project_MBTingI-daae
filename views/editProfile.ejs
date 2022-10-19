@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필수정</title>
+    <!-- axios -->
+    <script src="/axios/dist/axios.min.js"></script>
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- style -->
+    <link rel="stylesheet" href="./../static/css/style.css" />
+    <link rel="stylesheet" href="./../static/css/editProfile.css" />
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%-include("mypageAside.ejs")%>
+    <div class="containerEditProfile">
+      <h2>나의 프로필 수정</h2>
+      <div class="edit_profile">
+        <a class="logo" href="/"><img src="./../static/img/logo.png" /></a>
+
+        <form enctype="multipart/form-data">
+          <div class="profileDiv">
+            <div class="imgDiv">
+              <label for="editUploadImg" class="uploadLabel"
+                ><img src="<%=img%>" id="editImg"
+              /></label>
+            </div>
+            <label>프로필사진:</label>
+            <input
+              type="file"
+              name="editFile"
+              id="editUploadImg"
+              onchange="imgChange()"
+            />
+          </div>
+          <input
+            class="borderStyle"
+            type="text"
+            name="job"
+            placeholder="직업 (10자 이내)"
+            maxlength="10"
+            value="<%=job%>"
+          />
+          <input
+            class="borderStyle"
+            type="text"
+            name="interest"
+            placeholder="취미 (10자 이내)"
+            maxlength="10"
+            value="<%=interest%>"
+          />
+          <input
+            class="borderStyle"
+            type="text"
+            name="specialty"
+            placeholder="특기 (10자 이내)"
+            maxlength="10"
+            value="<%=specialty%>"
+          />
+          <textarea
+            type="text"
+            name="userdesc"
+            placeholder="내 소개 (100자 이내)"
+            maxlength="100"
+          >
+<%=desc%></textarea
+          >
+
+          <button type="button" onclick="onEditProfile()" id="modiBtn">
+            수정하기
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      function imgChange() {
+        const file = document.getElementById("editUploadImg");
+        const img = file.files[0];
+        const editImg = document.querySelector("#editImg");
+        editImg.src = URL.createObjectURL(img);
+      }
+
+      function onEditProfile() {
+        var form = document.querySelector("form");
+        const formData = new FormData();
+        const file = document.getElementById("editUploadImg");
+        console.log(file.value);
+        formData.append("editFileAxios", file.files[0]);
+        formData.append("job", form.job.value);
+        formData.append("interest", form.interest.value);
+        formData.append("specialty", form.specialty.value);
+        formData.append("userdesc", form.userdesc.value);
+        axios({
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          url: "/editProfile/editUpload",
+          method: "post",
+          data: formData,
+        }).then((response) => {
+          alert(response.data);
+          window.location.replace("/myPage");
+        });
+      }
+    </script>
+  </body>
+</html>

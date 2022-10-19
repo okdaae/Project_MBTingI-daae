@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Gugi&family=Noto+Sans+KR:wght@300;400;700;900&family=Rubik+Dirt&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+}
+ul li {
+  text-decoration: none;
+  padding-left: 0;
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+:root {
+  --main-color: #6e4cde;
+  --sub-color: #2e97f9;
+  --sub-color2: #89d8d3;
+}
+label {
+  cursor: pointer;
+}

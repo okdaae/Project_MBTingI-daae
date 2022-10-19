@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>마이페이지</title>
+    <!-- axios -->
+    <script src="/axios/dist/axios.min.js"></script>
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- style -->
+    <link rel="stylesheet" href="./../static/css/style.css" />
+    <!-- <link rel="stylesheet" href="./../static/css/myPage.css" /> -->
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      aside {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 280px;
+        height: 100%;
+        background-color: #fff;
+        border-radius: 0 0 0 0.5rem;
+        box-shadow: 0px 4px 11px rgb(0 0 0 / 40%);
+        text-align: center;
+        padding: 1rem;
+        box-sizing: border-box;
+        z-index: 100;
+      }
+      #autoBtn {
+        position: absolute;
+        left: -2.5rem;
+        top: 0;
+        width: 2.5rem;
+        height: 2.2rem;
+        margin-right: auto;
+        background-color: #fff;
+        border-radius: 0.5rem 0 0 0.5rem;
+        box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.4);
+      }
+      #autoBtn i {
+        font-size: 1.2rem;
+      }
+      aside .logo {
+        display: block;
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto 2rem;
+      }
+      aside .logo img {
+        width: 100%;
+        height: auto;
+      }
+      .menuList ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .menuList ul li {
+        height: 3rem;
+        line-height: 3rem;
+        font-size: 1rem;
+      }
+      .menuList ul li a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+      }
+      .menuList ul li a:hover {
+        background-color: #6e4cde49;
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <button type="button" id="autoBtn" onclick="onAuto()">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <a class="logo" href="/"><img src="../static/img/logo.png" /></a>
+      <div class="menuList">
+        <ul>
+          <li><a href="/myPage">나의 계정</a></li>
+          <li><a href="/editProfile">나의 프로필</a></li>
+          <!-- <li><a href="/chatlist">채팅 리스트</a></li> -->
+          <li><a href="/logout">로그아웃</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <script>
+      function onAuto() {
+        var button = $("#autoBtn i");
+        var close = $("#autoBtn i").hasClass("fa-bars");
+        var open = $("#autoBtn i").hasClass("fa-chevron-right");
+
+        if (open) {
+          button.addClass("fa-bars");
+          button.removeClass("fa-chevron-right");
+          $("aside").animate(
+            {
+              right: "-280px",
+            },
+            1000
+          );
+        } else {
+          button.addClass("fa-chevron-right");
+          button.removeClass("fa-bars");
+          $("aside").animate(
+            {
+              right: "0",
+            },
+            1000
+          );
+        }
+      }
+
+      var delay = 300;
+      var timer = null;
+      window.addEventListener(
+        "resize",
+        function () {
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            if (window.innerWidth < 576) {
+              $("#autoBtn").click();
+            }
+          }, delay);
+        },
+        false
+      );
+
+      var width = window.innerWidth;
+      // console.log(width);
+      if (width < 576) {
+        $("#autoBtn").click();
+      }
+    </script>
+  </body>
+</html>

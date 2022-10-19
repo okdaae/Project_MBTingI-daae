@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인</title>
+    <!-- axios -->
+    <script src="/axios/dist/axios.min.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="./../static/css/style.css" />
+    <link rel="stylesheet" href="./../static/css/signin.css" />
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="containerSignin">
+      <h2>Sign In</h2>
+      <div class="signin">
+        <a class="logo" href="/"><img src="./../static/img/logo.png" /></a>
+
+        <form>
+          <div class="signinForm">
+            <input type="text" name="id" placeholder="아이디" required />
+            <input
+              type="password"
+              name="pw"
+              placeholder="비밀번호"
+              autocomplete="off"
+              required
+            />
+            <div>
+              <input type="checkbox" id="loginState" name="sessions" /><label
+                for="loginState"
+              >
+                로그인 상태 유지</label
+              >
+            </div>
+          </div>
+          <hr />
+
+          <div class="etc">
+            <a href="/find">아이디/비밀번호찾기</a>
+            |
+            <a href="/signup">회원가입</a>
+          </div>
+          <button type="button" id="signinBtn" onclick="onLogin()">
+            로그인
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      function onLogin() {
+        var form = document.querySelector("form");
+
+        // required
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+
+        // axios
+        var form = document.querySelector("form");
+        var sessions = document.querySelector("input[name=sessions]:checked");
+        if (sessions == null) {
+          var data = {
+            id: form.id.value,
+            pw: form.pw.value,
+          };
+          console.log(data);
+        } else {
+          var data = {
+            id: form.id.value,
+            pw: form.pw.value,
+            sessions: sessions.value,
+          };
+          console.log(data);
+        }
+        axios({
+          url: "/signin/post",
+          method: "post",
+          data: data,
+        }).then((response) => {
+          if (response.data == "로그인완료") {
+            window.location.replace("/");
+          } else {
+            alert(response.data);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

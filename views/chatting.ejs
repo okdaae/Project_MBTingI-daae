@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="./../static/css/main.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/chatlist.css" />
+    <link rel="stylesheet" href="../static/css/chatting.css" />
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- 이상 Jquery CDN -->
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 이상 소켓 cdn -->
+    <script>
+      $(document).ready(function () {
+        socket.emit("room", "room<%=room_id%>");
+        socketEvent();
+        console.log("entrySuccess");
+        socket.emit("chatlistUp", "room<%=room_id%>");
+        msgAlert();
+        console.log("alertSuccess");
+      });
+    </script>
+  </head>
+  <body>
+    <%-include("chatlist.ejs")%>
+    <div class="containerChatting">
+      <div style="margin-bottom: 20px"></div>
+      <div class="chatd">
+        <div class="chatBox" id="chatBox"></div>
+        <div class="sendBox">
+          <input
+            class="msgBox"
+            id="msgBox"
+            placeholder="전송할 내용을 입력해주세요"
+            value=""
+          />
+          <button class="sendBtn" id="sendBtn" onclick="send()">전송</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      var socket = io.connect();
+      let myName = "[ ";
+      myName += "<%=me%>";
+      myName += " ]";
+      console.log(myName);
+
+      console.log(socket);
+      axios({
+        url: "/chatting/getDBMessage",
+        method: "post",
+        data: {
+          room_id: "<%=room_id%>",
+        },
+      }).then((result) => {
+        console.log(result.data);
+        console.log(result.data[0].split(",")[0]);
+        for (let i = 0; i < result.data.length - 1; i++)
+          if (result.data[i].split(",")[0] == myName) {
+            console.log(result.data[1]);
+            $("#chatBox").append(
+              `<div style="display: flex; justify-content: end">
+                <div class="my-chat_time">${result.data[i]
+                  .split(",")[2]
+                  .replace("[", "")
+                  .replace("]", "")}</div><div class="my-chat_DB">${result.data[
+                i
+              ]
+                .split(",")[0]
+                .replace("[", "")
+                .replace("]", "")} : ${result.data[i]
+                .split(",")[1]
+                .replace("[", "")
+                .replace("]", "")}</div>
+                </div>`
+            );
+          } else {
+            $("#chatBox").append(
+              `<div style="display: flex; ">
+              <div class="other-chat_DB">${result.data[i]
+                .split(",")[0]
+                .replace("[", "")
+                .replace("]", "")} : ${result.data[i]
+                .split(",")[1]
+                .replace("[", "")
+                .replace("]", "")} </div>
+              <div class="other-chat_time div">${result.data[i]
+                .split(",")[2]
+                .replace("[", "")
+                .replace("]", "")}</div>
+              </div>`
+            );
+          }
+      });
+
+      function send() {
+        console.log($(".msgBox").val());
+        var today = new Date();
+        console.log(today);
+        var dateArray = String(today).split(" ")[4].split(":");
+        console.log(dateArray[4]);
+        var theDate = today.toLocaleDateString();
+        var hours = dateArray[0];
+        var minutes = dateArray[1];
+        console.log(minutes);
+        var time = theDate + hours + ":" + minutes;
+        console.log(time);
+
+        var data = {
+          roomid: "room<%=room_id%>",
+          sendNick: `<%=me%>`,
+          msg: $(".msgBox").val(),
+          sendTime: time,
+        };
+        console.log("<%=room_id%>");
+        axios({
+          url: "/chatting/DBMessage",
+          method: "post",
+          data: {
+            room_id: "<%=room_id%>",
+            other_id: "<%=rec%>",
+            content: `[ ${data.sendNick} ], [ ${data.msg} ], [ ${data.sendTime} ]//`,
+            timestamp: data.sendTime,
+          },
+        }).then((result) => {
+          console.log(result);
+        });
+        socket.emit("send", data);
+        socket.emit("alert", { msg: "알림", roomid: data.roomid });
+      }
+
+      function socketEvent() {
+        var today = new Date();
+        var theDate = today.toLocaleDateString();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var time = theDate + hours + ":" + minutes;
+        socket.on("newMessage", (data) => {
+          let chat_box = document.getElementById("chatBox");
+          let div = document.createElement("div");
+          let div_chat = document.createElement("div");
+          let div_clock = document.createElement("div");
+          div_chat.textContent = data.sendNick + " : " + data.msg;
+          div_clock.textContent = time;
+
+          if (data.sendNick == `<%=me%>`) {
+            div_clock.classList.add("my-chat_time");
+            div.classList.add("my-chat");
+            chat_box.appendChild(div);
+            div.appendChild(div_clock);
+            div.appendChild(div_chat);
+          } else if (data.sendNick != `<%=me%>`) {
+            div.classList.add("other-chat");
+            div_clock.classList.add("other-chat_time");
+            chat_box.appendChild(div);
+            div.appendChild(div_chat);
+            div.appendChild(div_clock);
+          }
+        });
+      } // 입장 공지
+
+      var sendMsg = document.getElementById("msgBox");
+
+      sendMsg.addEventListener("keyup", function (event) {
+        var theText = $(".sendBtn").val();
+        if (event.keyCode === 13 && sendMsg.value != null) {
+          event.preventDefault();
+          document.getElementById("sendBtn").click();
+          sendMsg.value = null;
+        }
+      });
+
+      // 알림
+      function msgAlert() {
+        socket.on("alertData", (data) => {
+          console.log("alertData", data);
+        });
+      }
+    </script>
+  </body>
+</html>

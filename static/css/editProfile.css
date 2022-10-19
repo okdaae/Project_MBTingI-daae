@@ -1,0 +1,140 @@
+.containerEditProfile {
+  width: 100%;
+  height: 100vh;
+  background-color: #eee;
+  box-sizing: border-box;
+  background: #4568dc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #b06ab3,
+    #4568dc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #b06ab3,
+    #4568dc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.containerEditProfile h2 {
+  text-align: center;
+  color: #fff;
+  padding-top: 1rem;
+}
+.edit_profile {
+  width: 50vw;
+  max-width: 470px;
+  min-width: 350px;
+  height: 85vh;
+  background-color: rgba(255, 255, 255);
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+  border: 1px solid #fff;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.edit_profile .logo {
+  display: block;
+  margin: 1rem auto 0;
+  text-align: center;
+}
+.edit_profile .logo img {
+  width: 3rem;
+  height: auto;
+}
+.edit_profile form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+  justify-content: space-evenly;
+}
+.edit_profile form input.borderStyle {
+  background-color: transparent;
+  border: 1px solid var(--main-color);
+  width: 60%;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+.uploadLabel {
+  width: 100%;
+  height: 100%;
+}
+.edit_profile form input::placeholder {
+  color: var(--main-color);
+}
+.edit_profile .profileDiv {
+  width: 60%;
+}
+.edit_profile .profileDiv .imgDiv {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  overflow: hidden;
+  margin: 0 auto 2rem;
+  box-shadow: inset 2px 1px 5px rgb(0 0 0 / 25%);
+}
+.edit_profile .profileDiv .imgDiv #editImg {
+  width: 100%;
+  height: 100%;
+}
+.edit_profile .profileDiv label {
+  font-size: 0.9rem;
+  color: var(--main-color);
+}
+.edit_profile .profileDiv input {
+  cursor: pointer;
+  width: 60%;
+}
+#editUploadImg[type="file"]::file-selector-button {
+  background-color: #89d8d3;
+  background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0.3rem;
+  border: 0;
+  padding: 0.3rem;
+}
+textarea {
+  width: 60%;
+  height: 3rem;
+  padding: 0.5rem;
+  border: 1px solid var(--main-color);
+  resize: none;
+  border-radius: 0.3rem;
+}
+textarea::placeholder {
+  color: var(--main-color);
+}
+#modiBtn {
+  display: block;
+  margin: 0.8rem auto 0;
+  background-color: #89d8d3;
+  background-image: linear-gradient(315deg, #89d8d3 0%, #03c8a8 74%);
+  width: 7rem;
+  height: 2rem;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 0.3rem;
+}
+
+/* mobile */
+@media (max-width: 576px) {
+  .edit_profile form input.borderStyle {
+    width: 70%;
+  }
+  textarea {
+    width: 70%;
+    height: 4rem;
+    padding: 0.5rem;
+    border: 1px solid var(--main-color);
+    resize: none;
+    border-radius: 0.3rem;
+  }
+}

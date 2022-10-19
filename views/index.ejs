@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MBTingI</title>
+    <!--aos-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!--jquery-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+      integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.js"
+      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+      crossorigin="anonymous"
+    ></script>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="./../static/css/main.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="/slick/slick.css" />
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+    <!-- axios -->
+    <script src="/axios/dist/axios.min.js"></script>
+    <!--style css-->
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/chatlist.css" />
+    <!-- socket-->
+  </head>
+  <body>
+    <%if ( !isLogin ) { %>
+    <div style="display: none"></div>
+    <% } else { %> <%-include("chatlist.ejs")%> <% } %>
+    <%-include("navbar.ejs")%>
+    <section id="content1">
+      <div class="container">
+        <div class="content-row">
+          <div class="content-left">
+            <h1 class="content-title">
+              <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. A, dicta. -->
+              나랑 딱 맞는<br />
+              <span class="content-title-span">MBTI</span> <br />
+              끼리끼리
+            </h1>
+            <%if ( !isLogin ) { %>
+            <div class="trigger">
+              <a href="#" class="button-main">
+                <button type="button" id="modal-button">가입하기</button>
+              </a>
+            </div>
+
+            <% } else { %>
+            <div class="buttons">
+              <a href="/profile" class="button-matching enter">
+                <button type="button" class="stop-modal">프로필 셋팅</button>
+              </a>
+              <a href="/matching" class="button-matching">
+                <button type="button" class="stop-modal">매칭하기</button>
+              </a>
+            </div>
+            <% } %>
+          </div>
+          <div class="content-right">
+            <div class="main-img">
+              <img src="./../static/img/main-img.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="heart-message">
+        <img src="./../static/img/heart-messge.png" alt="" />
+      </div>
+      <div class="INFP-message">
+        <img src="./../static/img/Group 96.png" alt="" />
+      </div>
+      <div class="ENTP-message">
+        <img src="./../static/img/Group 97.png" alt="" />
+      </div>
+    </section>
+    <section id="content2">
+      <div class="container">
+        <div class="flex">
+          <div
+            class="content2-title-group"
+            data-aos="fade-right"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine"
+          >
+            <span class="title-simple">MBTingI</span>
+            <h1 class="content2-title">
+              지구상에 없던<br />
+              새로운 매칭
+            </h1>
+            <p class="content2-desc">
+              MBTI 결과에 따라 달라지는 스토리!<br />내가 선택한 mbti 를
+              확인하고,<br />
+              궁합에 따른 이성들과 매칭까지!
+            </p>
+          </div>
+          <div
+            class="content2-content-group"
+            data-aos="fade-left"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine"
+          >
+            <div class="box-img">
+              <img src="./../static/img/love-mattching.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="content3">
+      <div class="container">
+        <div class="flex">
+          <div
+            class="content3-title-group"
+            data-aos="fade-left"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine"
+          >
+            <span class="title-simple">MBTingI</span>
+            <h1 class="content3-title">
+              좋은사람들과<br />
+              매칭해보세요!
+            </h1>
+            <p class="content3-desc">
+              300여가지의 데이터를 이용해서<br />나에게 최적의 이성을 선별하여
+              <br />
+              1:1 채팅까지 가능합니다!
+            </p>
+          </div>
+          <div
+            class="content3-content-group flex"
+            data-aos="fade-right"
+            data-aos-offset="300"
+            data-aos-easing="ease-in-sine"
+          >
+            <div class="search-images">
+              <div class="search-img">
+                <img src="./../static/img/search.png" alt="" />
+              </div>
+              <div class="search-img">
+                <img src="./../static/img/emotions.png" alt="" />
+              </div>
+              <div class="search-img">
+                <img src="./../static/img/faithful.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="content4">
+      <!-- <div class="post-slider">
+        <h1 class="sider-title">MBTingI의 생생한 후기</h1> -->
+      <div class="page-wrapper" style="position: relative">
+        <!--page slider -->
+        <div class="post-slider">
+          <h1 class="silder-title">MBTingI의 생생한 후기</h1>
+          <i class="fas fa-chevron-left prev"></i>
+          <i class="fas fa-chevron-right next"></i>
+          <div class="post-wrapper responsive">
+            <div class="post">
+              <div class="post-item">
+                <div class="post-img">
+                  <img src="<%=userinfo[0].imgurl%>" alt="" />
+                </div>
+                <div class="post-info">
+                  <h4 class="post-desc">
+                    <a href="#" class="post-subject"
+                      >저에게 딱 맞는 상대를 찾았어요!
+                    </a>
+                  </h4>
+                  <p class="post-mbti-detail">
+                    <%=userinfo[0].mbti%> / <%=userinfo[0].gender%>
+                  </p>
+                  <div class="ratings">
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star-half-stroke"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="post-item">
+                <div class="post-img">
+                  <img src="<%=userinfo[1].imgurl%>" alt="" />
+                </div>
+                <div class="post-info">
+                  <h4 class="post-desc">
+                    <a href="#" class="post-subject">별로에요!!! </a>
+                  </h4>
+                  <p class="post-mbti-detail">
+                    <%=userinfo[1].mbti%> / <%=userinfo[1].gender%>
+                  </p>
+                  <div class="ratings">
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="post-item">
+                <div class="post-img">
+                  <img src="<%=userinfo[2].imgurl%>" alt="" />
+                </div>
+                <div class="post-info">
+                  <h4 class="post-desc">
+                    <a href="#" class="post-subject"
+                      >오늘 데이트 하러갑니다ㅋㅋㅋ
+                    </a>
+                  </h4>
+                  <p class="post-mbti-detail">
+                    <%=userinfo[2].mbti%> / <%=userinfo[2].gender%>
+                  </p>
+                  <div class="ratings">
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="post-item">
+                <div class="post-img">
+                  <img src="<%=userinfo[3].imgurl%>" alt="" />
+                </div>
+                <div class="post-info">
+                  <h4 class="post-desc">
+                    <a href="#" class="post-subject"
+                      >30년 모태솔로 인생!<br />
+                      이 서비스를 통해서 청산했어요~!
+                    </a>
+                  </h4>
+                  <p class="post-mbti-detail">
+                    <%=userinfo[3].mbti%> / <%=userinfo[3].gender%>
+                  </p>
+                  <div class="ratings">
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="post-item">
+                <div class="post-img">
+                  <img src="<%=userinfo[4].imgurl%>" alt="" />
+                </div>
+                <div class="post-info">
+                  <h4 class="post-desc">
+                    <a href="#" class="post-subject"
+                      >ENTP와 ENTP는 상극인가요ㅠㅠㅠㅠㅠㅠ<br />
+                    </a>
+                  </h4>
+                  <p class="post-mbti-detail">
+                    <%=userinfo[4].mbti%> / <%=userinfo[4].gender%>
+                  </p>
+                  <div class="ratings">
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star"></i>
+                    </span>
+                    <span class="rating">
+                      <i class="fa-solid fa-star-half-stroke"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--post slider-->
+      </div>
+    </section>
+    <section id="content5">
+      <div class="container">
+        <h1 class="content5-title">Please check your mbti</h1>
+        <div class="content5-list">
+          <a
+            target="_blank"
+            href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC"
+          >
+            <p class="list-item">
+              <i class="fa-solid fa-link"></i>검사하러가기
+            </p>
+            <!-- <span class="close-button">
+              <i class="fa-solid fa-x"></i>
+            </span> -->
+          </a>
+          <!-- <p class="list-item">MBTingI를 테스트 해주세요!</p>
+          <p class="list-item">자신에게 맞는 상대와 매칭 하세요</p> -->
+        </div>
+      </div>
+    </section>
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close-button">×</span>
+        <h1 class="modal-title">MBTI를 알고계시나요?</h1>
+        <p class="modal-desc">
+          안녕하세요. MBTingI입니다.<br />
+          원활한 서비스 이용을 위해서 회원가입을 안하셨다면 회원가입을 해주시고,
+          아래 사항에 따라 클릭해주세요.
+        </p>
+        <a href="/signup"
+          ><span class="YES"
+            ><button class="yes-button">
+              네 (회원가입 페이지로 이동)
+            </button></span
+          ></a
+        >
+        <a
+          href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC"
+          ><span class="NO"
+            ><button class="no-button">
+              아니요 (mbti 테스트로 이동)
+            </button></span
+          ></a
+        >
+      </div>
+    </div>
+    <!--modal test
+    <div class="trigger">모달테스트</div>
+<div class="modal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h1>Hello, I am a modal!</h1>
+    </div>
+</div> -->
+    <%-include("footer.ejs")%>
+    <!--testmonial-->
+
+    <script src="/slick/slick.js"></script>
+    <script>
+      AOS.init();
+
+      $(".post-wrapper").slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        nextArrow: $(".next"),
+        prevArrow: $(".prev"),
+
+        responsive: [
+          {
+            breakpoint: 970,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 560,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 370,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+        ],
+      });
+      /*modal*/
+      const modal = document.querySelector(".modal");
+      const trigger = document.querySelector(".trigger");
+      const closeButton = document.querySelector(".close-button");
+      const stopModal = document.querySelector(".stopModal");
+
+      function toggleModal() {
+        modal.classList.toggle("show-modal");
+      }
+
+      $(".stopModal").click(function (event) {
+        event.stopPropagation();
+        alert("test");
+      });
+
+      function windowOnClick(event) {
+        if (event.target === modal) {
+          toggleModal();
+        }
+      }
+
+      if (trigger) {
+        trigger.addEventListener("click", toggleModal);
+        closeButton.addEventListener("click", toggleModal);
+      }
+      window.addEventListener("click", windowOnClick);
+    </script>
+  </body>
+</html>

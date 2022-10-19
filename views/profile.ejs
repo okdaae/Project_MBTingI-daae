@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필</title>
+    <!-- axios -->
+    <script src="/axios/dist/axios.min.js"></script>
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+      integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- style -->
+    <link rel="stylesheet" href="./../static/css/style.css" />
+    <link rel="stylesheet" href="./../static/css/profile.css" />
+    <!-- icon -->
+    <script
+      src="https://kit.fontawesome.com/c44f54db1d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="containerProfile">
+      <h2>프로필</h2>
+      <div class="profile">
+        <a class="logo" href="/"><img src="./../static/img/logo.png" /></a>
+
+        <!-- <form action="/upload" method="post" enctype="multipart/form-data"> -->
+        <form enctype="multipart/form-data">
+          <div class="readDiv">
+            닉네임:
+            <input
+              value="<%=nick%>"
+              type="text"
+              name="nick"
+              class="readOnly"
+              readonly
+            />
+          </div>
+          <div class="readDiv">
+            MBTI:
+            <input
+              value="<%=mbti%>"
+              type="text"
+              name="mbti"
+              class="readOnly"
+              readonly
+            />
+          </div>
+          <div class="readDiv">
+            나이:
+            <input
+              value="<%=age%>"
+              type="text"
+              name="age"
+              class="readOnly"
+              readonly
+            />
+          </div>
+
+          <div class="profileDiv">
+            <label>프로필사진:</label>
+            <input type="file" name="userFile" id="uploadImg" required />
+          </div>
+          <input
+            class="borderStyle"
+            type="text"
+            name="job"
+            placeholder="직업 (10자 이내)"
+            maxlength="10"
+          />
+          <input
+            class="borderStyle"
+            type="text"
+            name="interest"
+            placeholder="취미 (10자 이내)"
+            maxlength="10"
+          />
+          <input
+            class="borderStyle"
+            type="text"
+            name="specialty"
+            placeholder="특기 (10자 이내)"
+            maxlength="10"
+          />
+          <textarea
+            type="text"
+            name="userdesc"
+            placeholder="내 소개 (100자 이내)"
+            maxlength="100"
+          ></textarea>
+
+          <button id="uploadBtn" type="button" onclick="onUpload()">
+            업로드
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      function onUpload() {
+        var form = document.querySelector("form");
+        // required
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+        const formData = new FormData();
+        const file = document.getElementById("uploadImg");
+        formData.append("userFileAxios", file.files[0]);
+        formData.append("job", form.job.value);
+        formData.append("userdesc", form.userdesc.value);
+        formData.append("interest", form.interest.value);
+        formData.append("specialty", form.specialty.value);
+
+        console.log(formData);
+        axios({
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          url: "/profile/uploadImg",
+          method: "post",
+          data: formData,
+        }).then((response) => {
+          console.log(response.data);
+          if (response.data == "업로드완료") {
+            window.location.replace("/matching");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
